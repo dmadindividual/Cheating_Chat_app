@@ -17,7 +17,7 @@ const Chat: React.FC = () => {
 
     const fetchMessages = async () => {
         try {
-            const response = await axios.get('http://localhost:5000');
+            const response = await axios.get('https://cheating-chatapp-backend.onrender.com/');
             setMessages(response.data);
         } catch (error) {
             console.error('Error fetching messages:', error);
@@ -31,7 +31,7 @@ const Chat: React.FC = () => {
     const sendMessage = async () => {
         if (message.trim() !== '') {
             try {
-                const response = await axios.post('http://localhost:5000/message', { message });
+                const response = await axios.post('https://cheating-chatapp-backend.onrender.com/message', { message });
                 const newMessage = response.data;
                 setMessages([...messages, newMessage]);
 
@@ -54,7 +54,7 @@ const Chat: React.FC = () => {
 
     const deleteMessage = async (id: string) => {
         try {
-            await axios.delete(`http://localhost:5000/message/${id}`);
+            await axios.delete(`https://cheating-chatapp-backend.onrender.com/message/${id}`);
             setMessages(messages.filter((msg) => msg._id !== id));
         } catch (error) {
             console.error('Error deleting message:', error);
@@ -69,7 +69,7 @@ const Chat: React.FC = () => {
     const updateMessage = async () => {
         if (editMessageId && editMessageText.trim() !== '') {
             try {
-                const response = await axios.put(`http://localhost:5000/message/${editMessageId}`, { message: editMessageText });
+                const response = await axios.put(`https://cheating-chatapp-backend.onrender.com/message/${editMessageId}`, { message: editMessageText });
                 setMessages(messages.map((msg) => (msg._id === editMessageId ? response.data : msg)));
                 setEditMessageId(null);
                 setEditMessageText('');
