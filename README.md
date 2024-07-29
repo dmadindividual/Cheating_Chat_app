@@ -1,125 +1,123 @@
-# Chat Application
+Here's an updated `README.md` file for your project, including details about the real-time messaging system using Socket.IO:
 
-## Overview
+```markdown
+# Bimber
 
-This Chat Application is a simple, real-time messaging app built with React for the frontend and a Node.js/Express backend. Users can send, edit, and delete messages, which are displayed dynamically. The application also features notifications to alert users when a new message is sent.
+Bimber is a real-time messaging application built with TypeScript, Express, MongoDB, and Socket.IO.
 
 ## Features
 
-- **Send Messages**: Users can type and send messages that will appear in the chat interface.
-- **Edit Messages**: Users can edit their messages after sending them.
-- **Delete Messages**: Users can delete their messages from the chat interface.
-- **Auto-remove Messages**: Messages automatically disappear from the chat after 10 seconds.
-- **Notifications**: Displays a notification when a new message is sent, which disappears after 3 seconds.
-- **Real-time Updates**: The chat interface updates in real-time as new messages are sent.
+- Real-time message broadcasting using Socket.IO
+- CRUD operations for messages
+- TypeScript for type safety
+- MongoDB for data storage
+- CORS enabled for cross-origin requests
 
-## Technologies Used
+## Prerequisites
 
-- **Frontend**: React, TypeScript, Tailwind CSS
-- **Backend**: Node.js, Express, MongoDB
-- **Styling**: Tailwind CSS
+- Node.js
+- MongoDB
+- npm or yarn
 
-## Getting Started
+## Installation
 
-### Prerequisites
-
-- Node.js and npm installed
-- MongoDB installed and running
-
-### Installation
-
-1. **Clone the repository**
+1. Clone the repository:
 
 ```sh
-git clone https://github.com/your-username/chat-application.git
-cd chat-application
+git clone https://github.com/your-username/bimber.git
+cd bimber
 ```
 
-2. **Install dependencies**
-
-For the frontend:
+2. Install dependencies:
 
 ```sh
-cd frontend
 npm install
+# or
+yarn install
 ```
 
-For the backend:
+3. Create a `.env` file in the root directory and add your MongoDB connection string:
+
+```env
+MONGODB_URL=your-mongo-db-connection-string
+```
+
+## Running the Application
+
+To start the development server:
 
 ```sh
-cd backend
-npm install
+npm run dev
+# or
+yarn dev
 ```
 
-3. **Set up environment variables**
+The server will start on port 5000. You can access the application at `http://localhost:5000`.
 
-Create a `.env` file in the `backend` directory and add the following:
+## API Endpoints
 
-```
-MONGODB_URI=your_mongodb_connection_string
-PORT=5000
-```
+- **GET /**: Fetch all messages
+- **POST /message**: Create a new message
+- **DELETE /message/:id**: Delete a message by ID
+- **PUT /message/:id**: Update a message by ID
 
-4. **Run the application**
+## WebSocket Events
 
-Start the backend server:
-
-```sh
-cd backend
-npm start
-```
-
-Start the frontend server:
-
-```sh
-cd frontend
-npm start
-```
-
-The application will be accessible at `http://localhost:3000`.
-
-## Usage
-
-- **Sending Messages**: Type your message in the input field at the bottom of the chat interface and click "Send".
-- **Editing Messages**: Click the "Edit" button next to the message you want to edit, modify the text, and click "Update".
-- **Deleting Messages**: Click the "Delete" button next to the message you want to remove.
-- **Notifications**: When a new message is sent, a notification will appear at the top of the screen and disappear after 3 seconds.
+- **newMessage**: Broadcasted when a new message is created
+- **deleteMessage**: Broadcasted when a message is deleted
+- **updateMessage**: Broadcasted when a message is updated
 
 ## Project Structure
 
-```
-chat-application/
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── .env
-│   ├── app.js
-│   └── ...
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── App.tsx
-│   │   ├── index.tsx
-│   │   └── ...
-│   ├── public/
-│   ├── tailwind.config.js
-│   └── ...
+```plaintext
+.
+├── node_modules
+├── src
+│   ├── models
+│   │   └── Message.ts
+│   ├── index.ts
+├── .env
+├── .gitignore
+├── package.json
 ├── README.md
-└── ...
+└── tsconfig.json
 ```
 
-## Contributing
+## Message Model
 
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
+The `Message` model schema:
+
+```typescript
+import mongoose from 'mongoose';
+
+const messageSchema = new mongoose.Schema({
+    message: String,
+    date: { type: Date, default: Date.now },
+    deviceId: String,
+});
+
+const Message = mongoose.model('Message', messageSchema);
+
+export default Message;
+```
+
+## Example Request
+
+### POST /message
+
+```sh
+curl -X POST http://localhost:5000/message -H "Content-Type: application/json" -d '{"message": "Hello, world!"}'
+```
+
+### GET /
+
+```sh
+curl http://localhost:5000/
+```
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License.
+```
 
-## Acknowledgements
-
-- Special thanks to Me
-
----
-
-Feel free to customize this README to better suit your project's details and structure.
+Feel free to adjust the repository URL and any other specific details as needed. This `README.md` provides an overview of the project, installation instructions, API endpoints, and examples for using the API.
